@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menu Knowledge</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400;500&display=swap">
+<style>
+:root{--bg:#fcf0f3;--card:#fff;--text:#3b2f33;--accent:#7a2230;--line:#e6d3d8;--pill-bg:#fdf3f5;--pill-line:#e8b9c2;--pill-text:#8a2f40;--g-bg:#e6f0e2;--g-line:#a9c6a0;--g-text:#3f6b37}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;padding:20px 16px}
+#menu{max-width:440px;margin:0 auto;display:grid;gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.photo{position:relative;height:220px;background:linear-gradient(135deg,#f2a33a,#c2551d) center/cover}
+.tag{position:absolute;top:14px;left:14px;background:var(--card);font-size:12px;letter-spacing:.15em;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+.body{padding:22px 22px 8px}
+h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;color:var(--accent);margin:0 0 10px}
+.desc{line-height:1.55;margin:0 0 16px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pill{font-size:14px;padding:6px 14px;border-radius:999px;background:var(--pill-bg);border:1px solid var(--pill-line);color:var(--pill-text)}
+.pill.diet{background:var(--g-bg);border-color:var(--g-line);color:var(--g-text)}
+details{border-top:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;padding:18px 0;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-size:15px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px}
+details[open] summary::after{content:"\2212"}
+details div{padding:0 0 18px;line-height:1.55;font-size:15px}
+</style>
+</head>
+<body>
+<div id="menu"></div>
+
+<script>
+/* ==========================================================
+   EDIT ONLY THIS LIST WHEN THE MENU CHANGES.
+   To add a dish: copy one block between { } and paste it below
+   (keep the comma after each block).
+   photo = file name of the image uploaded next to this file.
+   ========================================================== */
+const dishes = [
+  {
+    label: "STARTER 1",
+    name: "Isle of Skye Scallops",
+    photo: "scallops.jpg",
+    description: "Hand-dived scallops served with lemon gel, coastal herbs and herb purée. Finished with scallop roe and olive oil sabayon.",
+    allergens: ["Celery", "Egg", "Fish", "Gluten", "Milk", "Mollusc", "Mustard", "Soya", "Sulphur Dioxide"],
+    diet: ["Pescatarian"],
+    setUp: "Warm white plate. Small fork and knife.",
+    winePairing: "Chablis Premier Cru: crisp acidity cuts through the richness of the sabayon.",
+    knowledge: "Scallops are hand-dived. Roe is served attached and is edible. Always confirm allergens with the kitchen."
+  },
+  {
+    label: "STARTER 2",
+    name: "Wild Mushroom Velouté",
+    photo: "mushroom.jpg",
+    description: "Silky wild mushroom soup with truffle oil and toasted hazelnuts.",
+    allergens: ["Milk", "Celery", "Nuts"],
+    diet: ["Vegetarian"],
+    setUp: "Warm soup bowl. Soup spoon. Pour the velouté at the table.",
+    winePairing: "Pinot Noir from Burgundy: earthy notes echo the mushrooms.",
+    knowledge: "Mushrooms are foraged locally in season. Hazelnuts can be left off on request."
+  }
+];
+
+/* ---------- Do not edit below this line ---------- */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("menu").innerHTML = dishes.map(d => `
+  <article class="card">
+    <div class="photo" style="background-image:url('${esc(d.photo)}'),linear-gradient(135deg,#f2a33a,#c2551d)">
+      <span class="tag">${esc(d.label)}</span>
+    </div>
+    <div class="body">
+      <h2>${esc(d.name)}</h2>
+      <p class="desc">${esc(d.description)}</p>
+      <div class="pills">
+        ${d.allergens.map(a => `<span class="pill">${esc(a)}</span>`).join("")}
+        ${d.diet.map(a => `<span class="pill diet">${esc(a)}</span>`).join("")}
+      </div>
+      <details><summary>Set Up</summary><div>${esc(d.setUp)}</div></details>
+      <details><summary>Wine Pairing</summary><div>${esc(d.winePairing)}</div></details>
+      <details><summary>Knowledge Points</summary><div>${esc(d.knowledge)}</div></details>
+    </div>
+  </article>`).join("");
+</script>
+</body>
+</html>
