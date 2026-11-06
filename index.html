@@ -3,84 +3,185 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Menu Knowledge</title>
+<title>Food Bible</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400;500&display=swap">
 <style>
-:root{--bg:#fcf0f3;--card:#fff;--text:#3b2f33;--accent:#7a2230;--line:#e6d3d8;--pill-bg:#fdf3f5;--pill-line:#e8b9c2;--pill-text:#8a2f40;--g-bg:#e6f0e2;--g-line:#a9c6a0;--g-text:#3f6b37}
+:root{--bg:#fcf0f3;--card:#fff;--text:#3b2f33;--accent:#7a2230;--line:#e6d3d8}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;padding:20px 16px}
-#menu{max-width:440px;margin:0 auto;display:grid;gap:20px}
+header,footer{max-width:440px;margin:0 auto 16px;font-size:13px;line-height:1.5}
+h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;color:var(--accent);font-size:34px;margin:0 0 8px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+#menu{max-width:440px;margin:0 auto 16px;display:grid;gap:20px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden}
-.photo{position:relative;height:220px;background:linear-gradient(135deg,#f2a33a,#c2551d) center/cover}
+.photo{position:relative;height:210px;background:linear-gradient(135deg,#f2a33a,#c2551d) center/cover}
 .tag{position:absolute;top:14px;left:14px;background:var(--card);font-size:12px;letter-spacing:.15em;padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
 .body{padding:22px 22px 8px}
-h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;color:var(--accent);margin:0 0 10px}
+h2{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:28px;line-height:1.15;color:var(--accent);margin:0 0 10px}
 .desc{line-height:1.55;margin:0 0 16px}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
-.pill{font-size:14px;padding:6px 14px;border-radius:999px;background:var(--pill-bg);border:1px solid var(--pill-line);color:var(--pill-text)}
-.pill.diet{background:var(--g-bg);border-color:var(--g-line);color:var(--g-text)}
+.pill{font-size:13px;padding:5px 12px;border-radius:999px;border:1px solid}
+.no{background:#fbe4e7;border-color:#e08a97;color:#8a1f2f}
+.mod{background:#fff3d6;border-color:#e6c36a;color:#7a5a00}
+.chk{background:#fff;border:1px dashed #b08a2e;color:#7a5a00}
+.yes{background:#e6f0e2;border-color:#a9c6a0;color:#3f6b37}
+.nov{background:#f1ecee;border-color:#cdbfc4;color:#6b5a60}
 details{border-top:1px solid var(--line)}
-summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;padding:18px 0;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-size:15px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;padding:16px 0;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;font-size:14px}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-size:20px}
 details[open] summary::after{content:"\2212"}
-details div{padding:0 0 18px;line-height:1.55;font-size:15px}
+details div{padding:0 0 16px;line-height:1.55;font-size:15px}
 </style>
 </head>
 <body>
+<header>
+  <h1>Food Bible</h1>
+  Pills show allergens present in each dish. No pill means marked safe in the Food Bible.
+  <div class="legend"><span class="pill no">Cannot be modified</span><span class="pill mod">Can be modified</span><span class="pill chk">Check with kitchen</span></div>
+</header>
 <div id="menu"></div>
+<footer>The Food Bible grid has no Mollusc column: always confirm molluscs (oysters, scallops, mussels) and every allergen with the kitchen before serving.</footer>
 
 <script>
 /* ==========================================================
    EDIT ONLY THIS LIST WHEN THE MENU CHANGES.
-   To add a dish: copy one block between { } and paste it below
-   (keep the comma after each block).
-   photo = file name of the image uploaded next to this file.
+   t: "STARTER" or "MAIN"    ph: photo file name (upload it next to index.html)
+   ov: overview   ga: garnish   ex: extras   ad: advanced knowledge
+   no: allergens that cannot be modified (comma separated)
+   mod: allergens that can be modified     chk: items to check (separate with ;)
+   v: vegetarian -> "yes", "no", "mod" (with changes) or "chk"
+   To add a dish copy one block { } and paste it, keeping the comma.
    ========================================================== */
 const dishes = [
-  {
-    label: "STARTER 1",
-    name: "Isle of Skye Scallops",
-    photo: "scallops.jpg",
-    description: "Hand-dived scallops served with lemon gel, coastal herbs and herb purée. Finished with scallop roe and olive oil sabayon.",
-    allergens: ["Celery", "Egg", "Fish", "Gluten", "Milk", "Mollusc", "Mustard", "Soya", "Sulphur Dioxide"],
-    diet: ["Pescatarian"],
-    setUp: "Warm white plate. Small fork and knife.",
-    winePairing: "Chablis Premier Cru: crisp acidity cuts through the richness of the sabayon.",
-    knowledge: "Scallops are hand-dived. Roe is served attached and is edible. Always confirm allergens with the kitchen."
-  },
-  {
-    label: "STARTER 2",
-    name: "Wild Mushroom Velouté",
-    photo: "mushroom.jpg",
-    description: "Silky wild mushroom soup with truffle oil and toasted hazelnuts.",
-    allergens: ["Milk", "Celery", "Nuts"],
-    diet: ["Vegetarian"],
-    setUp: "Warm soup bowl. Soup spoon. Pour the velouté at the table.",
-    winePairing: "Pinot Noir from Burgundy: earthy notes echo the mushrooms.",
-    knowledge: "Mushrooms are foraged locally in season. Hazelnuts can be left off on request."
-  }
+{t:"STARTER",n:"Spring Onion and Potato Croquette",ph:"croquette.jpg",
+ ov:"Creamy potato and spring onion croquette with a crispy coating.",
+ ga:"Pickled spring onions on top, served with a spring onion emulsion/mayo. Chive baton.",
+ ex:"A little crème fraîche in the mash mixture. Inspired by Northern Ireland's champ, a very common potato dish.",
+ ad:"A croquette is a small deep-fried or baked food with a savoury filling. Champ is an Irish mashed-potato dish of mashed potatoes, chopped spring onions, butter and milk, sometimes called poundies.",
+ no:"Gluten,Eggs,Milk",mod:"Mustard,Sulphur Dioxide",chk:"",v:"yes"},
+{t:"STARTER",n:"The Eggs Drumkilbo",ph:"drumkilbo.jpg",
+ ov:"Seafood cocktail of white Dorset crab and lobster pieces, infused with lemon zest, chives, chervil and Espelette pepper, bound with crème fraîche and a touch of mayonnaise.",
+ ga:"Roasted tomato jelly, lobster oil, Espelette pepper, lobster tail piece, fresh herbs, soft-boiled quail's egg, compressed cucumber pearls, aged Imperial caviar.",
+ ex:"On the side a crumpet topped with brown crab mousse, apple disc, crispy cabbage and coral powder. Served in a silver crab shell (guest can eat it as finger food). Invented by a chef for the Queen Mother in Drumkilbo, Scotland.",
+ ad:"Dorset is in South-West England. Espelette pepper: sweet, smoky spice from the South of France. Roasted tomato jelly: tomatoes cooked at very high heat to release their juices, set with agar. Compression: vacuum-infusing a fruit or vegetable with another ingredient (here, sugar). Coral powder: cooked lobster roe, which turns bright red.",
+ no:"Mustard,Sulphur Dioxide,Crustaceans,Eggs,Fish,Milk",mod:"Gluten",chk:"",v:"no"},
+{t:"STARTER",n:"Mushroom Risotto",ph:"risotto.jpg",
+ ov:"Acquerello rice, cep purée, smoked butter.",
+ ga:"Emmental and parmesan crisp dressed with pickled walnut purée, confit Clarence Court egg yolk, nasturtium leaves and oil, morel mushroom disc.",
+ ex:"The cep purée is balanced by the creamy risotto and egg yolk. Emmental and parmesan are cooked at very high heat to puff into a crisp.",
+ ad:"Acquerello: Carnaroli rice aged 1 to 7 years, produced only by Tenuta Colombara in Vercelli, northern Italy. Clarence Court eggs come from heritage hens on a special diet that gives the yolk its rich orange colour. Purée: food ground into a thick liquid.",
+ no:"Sulphur Dioxide,Celery",mod:"Nuts (walnut),Eggs,Milk",chk:"",v:"yes"},
+{t:"STARTER",n:"Orkney Scallop Ceviche",ph:"ceviche.jpg",
+ ov:"Orkney scallop, sliced raw and served ceviche, on cashew milk (cashew, grapes, honey, water). Topped with seaweed jelly, seaweed powder, pomelo, grapefruit gel dots and cashew crumbs. Cold-pressed rapeseed oil.",
+ ga:"Cashew crumbs, herbs and flowers.",
+ ex:"",
+ ad:"Orkney is a place in North-West Scotland. Ceviche: fresh fish or shellfish marinated in citrus juice, celebrated especially in Peru.",
+ no:"Sulphur Dioxide,Crustaceans",mod:"Nuts (pecan),Eggs,Milk",chk:"Nuts: recipe uses cashew",v:"no"},
+{t:"STARTER",n:"Delica Pumpkin, Devon Blue Cheese Ravioli",ph:"ravioli.jpg",
+ ov:"Ravioli stuffed with roasted pumpkin and Devon Blue cheese, on hazelnut pesto and pumpkin seed oil.",
+ ga:"Pickled shallot rings and pickled pumpkin discs. Chicken suprême sauce poured on, creamy and rich (chef can make a vegetable sauce).",
+ ex:"A little Espelette pepper, brown butter and herbs in the mix.",
+ ad:"Devon Blue: dense, crumbly, moist cheese with a sweet, caramelly, earthy depth, aged about 4 months. Delica pumpkin: dark green squash with orange, buttery flesh, high in sugar; grown around Lombardy in autumn.",
+ no:"Lupin,Nuts,Gluten,Eggs,Milk",mod:"Sesame,Sulphur Dioxide,Peanuts,Soya,Celery",chk:"",v:"mod"},
+{t:"STARTER",n:"Duck Liver Terrine with Plums",ph:"terrine.jpg",
+ ov:"Foie gras terrine steamed with Madeira, Port and Merlot reduction and spices (coriander, fennel, salt, pepper), topped with mirabelle plum and plum compote. Beside it a blanched, torched greengage stuffed with plum compote. Finished with olive oil.",
+ ga:"On the side homemade brown butter brioche glazed with Demerara sugar. On the terrine: plum jelly topped with thin fresh plum slices and plum purée.",
+ ex:"",
+ ad:"Mirabelle: small, sweet, golden-yellow European plum. Greengage: round-oval plum with smooth, pale green flesh, smaller than round plums but larger than mirabelles.",
+ no:"Mustard,Sulphur Dioxide",mod:"Lupin,Nuts,Eggs,Milk,Celery",chk:"",v:"no"},
+{t:"STARTER",n:"Heritage Beetroot, Windrush Goat's Cheese, Walnut, Gougère",ph:"beetroot.jpg",
+ ov:"Heritage salt-baked beetroot (yellow and baby). Goat's cheese mousse whipped with cream and crème fraîche. Beetroot, timur pepper and apple dressing. Hibiscus gel.",
+ ga:"Caramelised walnuts, pickled beetroot discs. On the side a goat's cheese gougère with beetroot powder and grated walnut.",
+ ex:"Beetroot dressing poured at the table. Fennel flowers, alyssum and fennel pollen. No gougère on the lunch menu; more beetroot on the chef's set lunch.",
+ ad:"Windrush: soft, creamy hand-ladled Cotswold goat's cheese from a tiny Gloucestershire producer; pasteurised and vegetarian. Gougère: savoury choux pastry with a savoury filling. Timur: dried husk of a Himalayan shrub related to Sichuan pepper; citrusy, grapefruit-like, tingling rather than hot.",
+ no:"",mod:"Sulphur Dioxide,Lupin,Nuts (walnuts),Gluten,Milk",chk:"Eggs (gougère is choux pastry)",v:"chk"},
+{t:"STARTER",n:"Jersey Rock Oysters",ph:"oysters.jpg",
+ ov:"Oysters sourced from Cumbrae.",
+ ga:"Pickled shallots, lemon wedges.",
+ ex:"Take extra care when clearing: once the crushed ice melts it is very easy to spill.",
+ ad:"Cumbrae oysters are washed in natural salt water and cleaned by ultraviolet purification. Great Cumbrae is the larger of the two Cumbrae islands in western Scotland.",
+ no:"",mod:"Sulphur Dioxide",chk:"",v:"no"},
+{t:"MAIN",n:"Dover Sole",ph:"dover-sole.jpg",
+ ov:"Guest chooses grilled or à la meunière (floured, fried, served with hot melted butter, lemon, parsley and croutons). Filleted at the table to guest preference. Beer batter scraps nod to the Chef's love of fish and chips.",
+ ga:"Roasted cauliflower purée, cauliflower fondant, cauliflower leaf, hazelnuts, verjus and apple gel, crispy capers, croutons and parsley (à la meunière).",
+ ex:"Fillet the sole onto the adjacent plate, lemon wedges on top. Wipe the plate with a damp cloth before serving; take bones and remains back to the station separately.",
+ ad:"Dover sole: floor-dwelling flatfish from the southern waters of the British Isles, succulent and buttery. À la meunière: fish cooked in a pan with butter sauce.",
+ no:"Fish,Milk",mod:"Sulphur Dioxide,Lupin,Gluten,Eggs",chk:"Nuts (hazelnuts in garnish)",v:"no"},
+{t:"MAIN",n:"The Lobster Omelette",ph:"lobster-omelette.jpg",
+ ov:"Omelette of Clarence Court Burford Brown eggs with a special lobster thermidor sauce. The rich omelette is balanced by fresh London lettuce; the potato terrine soaks up the sauce.",
+ ga:"London lettuce with lobster dressing, lobster oil and mayonnaise, topped with Parmesan, Espelette pepper and parsley cress. Croutons, poached lobster tail pieces.",
+ ex:"On the side: pressed, deep-fried potato terrine, malt vinegar powder and taramasalata (smoked cod's roe, dill).",
+ ad:"Lobster thermidor sauce: like béchamel but with lobster stock instead of milk, finished with brandy, Parmesan, lobster oil and cream. Béchamel is a white sauce found in pies, casseroles and lasagne. Our lobster is native, from Cornwall.",
+ no:"Mustard,Sulphur Dioxide,Gluten,Crustaceans,Eggs,Milk,Celery",mod:"",chk:"Fish (cod roe in taramasalata; blank in source)",v:"no"},
+{t:"MAIN",n:"Stuffed Devon White Chicken",ph:"chicken.jpg",
+ ov:"Roasted Devon White chicken breast stuffed with truffle butter. Brisée tart with bacon jam, leek, crispy chicken skin and pan-fried hen of the woods. Sweet, salty, creamy, savoury.",
+ ga:"Confit Burford Brown egg yolk mixed with truffle oil.",
+ ex:"Suprême sauce (white wine, shallots, tarragon; sulphur dioxide) poured at the table between the chicken and the tart.",
+ ad:"Hen of the woods: frilly cap, meaty taste, of the maitake family, found at the base of oak, maple and elm. Our chicken is free range.",
+ no:"Milk",mod:"Sulphur Dioxide,Gluten,Eggs,Celery",chk:"",v:"no"},
+{t:"MAIN",n:"Atlantic Stone Bass",ph:"stone-bass.jpg",
+ ov:"Atlantic stone bass fillet (130-140 g), whole fish dry-aged 3-4 days, seasoned and pan-fried. Brandade-stuffed courgette flower (bass trimmings, mash, seaweed, lemon zest). Courgette and basil purée. Baby courgette with marinated courgette, crispy potato, fennel flowers, sea fennel and seaweed powder.",
+ ga:"Finished with piperade (piperrada), a Basque sauce of onion, red peppers and tomatoes flavoured with Espelette pepper.",
+ ex:"",
+ ad:"Brandade: also brandade de morue (French), brandada de bacalao (Spanish), baccalà mantecato (Italian); an emulsion of fish trimmings, mash and herbs.",
+ no:"Fish",mod:"Sulphur Dioxide,Nuts,Gluten,Milk,Celery",chk:"",v:"no"},
+{t:"MAIN",n:"South West Lamb",ph:"lamb.jpg",
+ ov:"Saddle of lamb from Rhug Estate (Wales), dry-aged at least a week, seared with foaming butter and finished in the oven (recommend medium rare).",
+ ga:"Suet pastry (beef fat) filled with lamb mince, sweetbread and kidney cooked in balsamic and caramelised onion; topped with carrot fondant, pickled carrot disc and anchovy mayonnaise. Sand carrot purée with star anise and pepper.",
+ ex:"Finished with a rich lamb and tarragon jus.",
+ ad:"Rhug Estate is one of the few UK farms rearing buffalo; owner Lord Newborough has won many awards including a Great Taste Award 2022. Suet pastry: traditional British pastry of suet, flour and water, soft and crumbly. Sweetbread: thymus or pancreas, rich, slightly gamey, tender.",
+ no:"Sulphur Dioxide,Celery",mod:"Gluten,Eggs,Milk",chk:"Fish (anchovy mayonnaise in garnish)",v:"no"},
+{t:"MAIN",n:"Dry-aged Cornish Duck, Roast Turnip, Cherry, Spiced Duck Leg Fritter and Smoked Vinegar",ph:"duck.jpg",
+ ov:"Duck dry-aged three weeks; breast cooked sous vide, seared just before serving. Turnip fondant and purée, cherry purée, hazelnuts and thyme.",
+ ga:"Duck leg and cherry croquette with smoked vinegar gel and pickled turnips. Duck and cherry sauce.",
+ ex:"",ad:"",
+ no:"Sulphur Dioxide",mod:"Nuts,Gluten,Eggs,Milk,Celery",chk:"",v:"no"},
+{t:"MAIN",n:"Crusted Halibut",ph:"halibut.jpg",
+ ov:"Halibut crusted with brioche.",
+ ga:"Artichoke purée (artichoke, saffron, fish stock, butter). Violet artichoke barigoule glazed in mussel glaze, topped with sourdough crumbs and pickled carrots. On the side a barigoule with sweated onions, carrots, mussel juices, cream and the mussels.",
+ ex:"The sauce is a nage: pour a light touch in the centre of the dish to finish (do not overpour).",
+ ad:"Barigoule: Provençal dish of artichokes cooked in a broth. Nage: French for a flavoured poaching liquid, typically seafood in white wine, vegetables and herbs, reduced and thickened with cream and/or butter.",
+ no:"Mustard,Sulphur Dioxide,Gluten,Fish,Milk,Celery",mod:"Crustaceans",chk:"Eggs (brioche crust)",v:"no"},
+{t:"MAIN",n:"Beef Wellington",ph:"wellington.jpg",
+ ov:"250 g fillet of Red Horn beef (Cornish Court Farms). Wrapped in herb crêpe with chicken mousse, duxelles and caul fat, then in puff pastry.",
+ ga:"Pickled horseradish, mushroom ketchup, beef fat salt crumbs, king oyster mushroom slow-cooked in beef fat, komatsuna leaves, pickled onion.",
+ ex:"On the side a parmentier of slow-cooked beef rib and creamy mash with breadcrumbs. Red wine jus (celery, sulphur dioxide) poured between the onion purée and the Wellington.",
+ ad:"Preparation: brined, seared for colour, then vide at 57 °C until the core reaches 55 °C. Duxelles: finely chopped mushrooms, shallots and herbs cooked to a paste. Named after the Duke of Wellington after Waterloo (1815).",
+ no:"Mustard,Sulphur Dioxide,Lupin,Gluten,Eggs,Milk,Celery",mod:"",chk:"",v:"no"},
+{t:"MAIN",n:"Sunday Beef Sirloin",ph:"sirloin.jpg",
+ ov:"Sirloin dry-aged 4 weeks; slow-roasted Longhorn beef, beef fat roast potatoes, seasonal vegetables. Cauliflower cheese (milk), horseradish sauce (eggs, milk, sulphur dioxide), beef jus (celery).",
+ ga:"Yorkshire pudding (eggs, milk, gluten, lupin).",
+ ex:"",
+ ad:"Our Longhorn beef is grass-fed, generally considered healthier than grain-fed for its natural balance of fatty acids. Guests pour their own gravy: place the gravy boat on a side plate and serve to the table.",
+ no:"",mod:"Sulphur Dioxide,Lupin,Gluten,Eggs,Soya,Milk,Celery",chk:"",v:"no"}
 ];
 
 /* ---------- Do not edit below this line ---------- */
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-document.getElementById("menu").innerHTML = dishes.map(d => `
-  <article class="card">
-    <div class="photo" style="background-image:url('${esc(d.photo)}'),linear-gradient(135deg,#f2a33a,#c2551d)">
-      <span class="tag">${esc(d.label)}</span>
-    </div>
+const list = (s, sep) => s ? s.split(sep).map(x => x.trim()).filter(Boolean) : [];
+const vegMap = {yes:["yes","Vegetarian"], no:["nov","Not vegetarian"], mod:["mod","Vegetarian with changes"], chk:["chk","Vegetarian: check"]};
+const count = {};
+const sec = (title, text) => text ? `<details><summary>${title}</summary><div>${esc(text)}</div></details>` : "";
+document.getElementById("menu").innerHTML = dishes.map(d => {
+  count[d.t] = (count[d.t] || 0) + 1;
+  const v = vegMap[d.v];
+  const pills = [
+    ...list(d.no, ",").map(a => `<span class="pill no">${esc(a)}</span>`),
+    ...list(d.mod, ",").map(a => `<span class="pill mod">${esc(a)}</span>`),
+    ...list(d.chk, ";").map(a => `<span class="pill chk">${esc(a)}</span>`),
+    `<span class="pill ${v[0]}">${v[1]}</span>`
+  ].join("");
+  return `<article class="card">
+    <div class="photo" style="background-image:url('${esc(d.ph)}'),linear-gradient(135deg,#f2a33a,#c2551d)"><span class="tag">${d.t} ${count[d.t]}</span></div>
     <div class="body">
-      <h2>${esc(d.name)}</h2>
-      <p class="desc">${esc(d.description)}</p>
-      <div class="pills">
-        ${d.allergens.map(a => `<span class="pill">${esc(a)}</span>`).join("")}
-        ${d.diet.map(a => `<span class="pill diet">${esc(a)}</span>`).join("")}
-      </div>
-      <details><summary>Set Up</summary><div>${esc(d.setUp)}</div></details>
-      <details><summary>Wine Pairing</summary><div>${esc(d.winePairing)}</div></details>
-      <details><summary>Knowledge Points</summary><div>${esc(d.knowledge)}</div></details>
+      <h2>${esc(d.n)}</h2>
+      <p class="desc">${esc(d.ov)}</p>
+      <div class="pills">${pills}</div>
+      ${sec("Garnish", d.ga)}${sec("Extras", d.ex)}${sec("Advanced Knowledge", d.ad)}
     </div>
-  </article>`).join("");
+  </article>`;
+}).join("");
 </script>
 </body>
 </html>
